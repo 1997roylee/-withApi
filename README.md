@@ -13,16 +13,23 @@ npm install --save with-api
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
+import axios from 'axios'
+import withApi from 'with-api'
 
-import MyComponent from 'with-api'
-import 'with-api/dist/index.css'
+const getFake = () => axios.get('https://jsonplaceholder.typicode.com/todos/1');
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const App = () => {
+    const [{ data, error, status, isLoading, reset }, fetchSomething] = withApi(
+        getFake
+    )
+
+    React.useEffect(() => {
+        fetchSomething()
+    }, [])
 }
+
+export default App
 ```
 
 ## License
