@@ -1,13 +1,13 @@
 import React from 'react'
 
-import withApi from 'with-api'
+import { WithApi } from 'with-api'
 import ApiSerivce from './api.serivce'
 
 const api = new ApiSerivce()
 
 const App = () => {
     // eslint-disable-next-line no-unused-vars
-    const [{ data, error, status, isLoading, reset }, fetchSomething] = withApi(
+    const [{ data, error, status, isLoading, reset }, fetchSomething] = WithApi(
         api.fakeRequest
     )
 

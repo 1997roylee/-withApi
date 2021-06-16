@@ -6,7 +6,7 @@ export const STATUS = {
     Failed: 'Failed'
 }
 
-export default function WithApi(fn) {
+export function WithApi(fn) {
     const [data, setData] = React.useState(null)
     const [error, setError] = React.useState(null)
     const [status, setStatus] = React.useState(null)

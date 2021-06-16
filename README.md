@@ -15,12 +15,12 @@ npm install --save with-api
 ```jsx
 import React from 'react'
 import axios from 'axios'
-import withApi from 'with-api'
+import { WithApi } from 'with-api'
 
 const getFake = () => axios.get('https://jsonplaceholder.typicode.com/todos/1');
 
 const App = () => {
-    const [{ data, error, status, isLoading, reset }, fetchSomething] = withApi(
+    const [{ data, error, status, isLoading, reset }, fetchSomething] = WithApi(
         getFake
     )
 
