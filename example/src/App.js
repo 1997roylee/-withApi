@@ -12,7 +12,9 @@ const App = () => {
     )
 
     React.useEffect(() => {
-        fetchSomething()
+        ;(async () => {
+            console.log(await fetchSomething())
+        })()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

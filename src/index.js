@@ -17,11 +17,14 @@ export function WithApi(fn) {
             const result = await fn(payloads)
             setData(result)
             setStatus(STATUS.Success)
+            setIsLoading(false)
+            return result
         } catch (error) {
             setError(error)
             setStatus(STATUS.Failed)
+            setIsLoading(false)
+            return error
         }
-        setIsLoading(false)
     }
     const reset = () => {
         setData(null)
