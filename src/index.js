@@ -20,10 +20,10 @@ export function WithApi(fn) {
             setIsLoading(false)
             return result
         } catch (error) {
-            setError(error)
+            setError(error.response)
             setStatus(STATUS.Failed)
             setIsLoading(false)
-            return error
+            return error.response
         }
     }
     const reset = () => {
