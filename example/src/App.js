@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { WithApi } from 'with-api'
+import { WithApi, STATUS } from 'with-api'
 import ApiSerivce from './api.serivce'
 
 const api = new ApiSerivce()
@@ -12,8 +12,15 @@ const App = () => {
     )
 
     React.useEffect(() => {
-        ;(async () => {
-            console.log(await fetchSomething())
+        ; (async () => {
+            const { status, ...other } = await fetchSomething();
+            console.log(STATUS)
+            if (status === STATUS.Success) {
+                console.log(status, other);
+            }
+            else if (status === STATUS.Failure) {
+                console.log("Error Handler", status, other);
+            }
         })()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -24,9 +31,11 @@ const App = () => {
                 <h1>Status: {status}</h1>
             </div>
             <div>{isLoading ? <h1>Loading...</h1> : JSON.stringify(data)}</div>
-            <div>
-                <h1>Error: {error}</h1>
-            </div>
+            {
+                error ? <div>
+                    <h1>Error: {error}</h1>
+                </div> : null
+            }
         </>
     )
 }
