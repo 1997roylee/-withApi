@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { WithApi, STATUS } from 'with-api'
+import { WithApi, STATUS } from 'with-api-hook'
 import ApiSerivce from './api.serivce'
 
 const api = new ApiSerivce()
