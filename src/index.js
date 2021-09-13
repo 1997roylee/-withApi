@@ -1,11 +1,11 @@
 // index.js
 import React from 'react'
 
-export const STATUS = {
-    Success: 'Success',
-    Failed: 'Failed'
-}
+import { STATUS } from './constants'
 
+/**
+ * @param  {} fn
+ */
 export function WithApi(fn) {
     const [data, setData] = React.useState(null)
     const [error, setError] = React.useState(null)
@@ -15,15 +15,20 @@ export function WithApi(fn) {
         try {
             setIsLoading(true)
             const result = await fn(payloads)
+            // Begin: set data
             setData(result)
             setStatus(STATUS.Success)
             setIsLoading(false)
-            return result
+            // End: set data
+            if (isObject(result)) return { ...result, status: STATUS.Success }
+            else return { data: result, status: STATUS.Success }
         } catch (error) {
+            // Begin: Error handling
             setError(error.response)
-            setStatus(STATUS.Failed)
+            setStatus(STATUS.Failure)
             setIsLoading(false)
-            return error.response
+            // End: Error handling
+            return { response: error.response, status: STATUS.Failure }
         }
     }
     const reset = () => {
@@ -37,3 +42,9 @@ export function WithApi(fn) {
         React.useCallback(request, [])
     ]
 }
+
+function isObject(object) {
+    return !Array.isArray(object) && typeof object === 'object'
+}
+
+export { STATUS, isObject }
